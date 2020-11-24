@@ -31,21 +31,24 @@ class NodeInput {
   NodeInput({
     @required this.id,
     @required this.next,
+    this.tableQuanity,
   });
 
   final String id;
   final List<String> next;
+  int tableQuanity;
 
   factory NodeInput.fromJson(Map<String, dynamic> json) => NodeInput(
-        id: json["id"] == null ? null : json["id"],
-        next: json["next"] == null
-            ? null
-            : List<String>.from(json["next"].map((x) => x)),
-      );
+      id: json["id"] == null ? null : json["id"],
+      next: json["next"] == null
+          ? null
+          : List<String>.from(json["next"].map((x) => x)),
+      tableQuanity: json["tableQuanity"]);
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "next": next == null ? null : List<dynamic>.from(next.map((x) => x)),
+        "tableQuanity": tableQuanity,
       };
 }
 
@@ -62,6 +65,7 @@ class MatrixNode extends NodeOutput {
     @required this.y,
     @required String id,
     @required List<String> next,
+    this.tableQuanity,
     AnchorType anchorType,
     String from,
     String to,
@@ -74,6 +78,7 @@ class MatrixNode extends NodeOutput {
   }) : super(
           id: id,
           next: next,
+          tableQuanity: tableQuanity,
           anchorType: anchorType,
           from: from,
           to: to,
@@ -91,6 +96,7 @@ class MatrixNode extends NodeOutput {
       y: y,
       id: nodeOutput.id,
       next: nodeOutput.next,
+      tableQuanity: nodeOutput.tableQuanity,
       anchorType: nodeOutput.anchorType,
       from: nodeOutput.from,
       to: nodeOutput.to,
@@ -105,12 +111,14 @@ class MatrixNode extends NodeOutput {
 
   final int x;
   final int y;
+  final int tableQuanity;
 }
 
 class NodeOutput extends NodeInput {
   NodeOutput({
     @required String id,
     @required List<String> next,
+    int tableQuanity,
     this.anchorType,
     this.from,
     this.to,
@@ -120,7 +128,7 @@ class NodeOutput extends NodeInput {
     this.renderIncomes,
     this.childrenOnMatrix,
     this.anchorMargin,
-  }) : super(id: id, next: next);
+  }) : super(id: id, next: next, tableQuanity: tableQuanity);
 
   AnchorType anchorType;
   String from;

@@ -26,6 +26,7 @@ class TraverseQueue {
       this.s.add(NodeOutput(
             id: itm.id,
             next: itm.next,
+            tableQuanity: itm.tableQuanity,
             passedIncomes: incomes,
             renderIncomes: renderIncomes,
             childrenOnMatrix: 0,

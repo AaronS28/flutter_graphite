@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:graphite/core/typings.dart';
 
@@ -30,12 +31,30 @@ typedef GestureNodeDragUpdateCallback = void Function(
 typedef GestureNodeDragDownCallback = void Function(
     DragDownDetails details, MatrixNode node);
 
-Widget _defaultNodeCellBuilder(BuildContext context, MatrixNode node) {
-  return Container(
-    alignment: Alignment.center,
-    child: Text(node.id),
-    color: Color(0xFF26A69A),
+//TODO add tables here
+Widget _tableBuilder(BuildContext context, MatrixNode node) {
+  switch (node.tableQuanity) {
+    case 2:
+      return _tableFor2();
+      break;
+    case 4:
+      return _tableFor4();
+      break;
+    default:
+      return _tableFor2();
+      break;
+  }
+}
+
+_tableFor2() {
+  return Image.asset(
+    'image/table_for_2.png',
+    color: Colors.red,
   );
+}
+
+_tableFor4() {
+  return Image.asset('image/table_for_4.png', color: Colors.black);
 }
 
 class GraphiteCell extends StatefulWidget {
@@ -143,7 +162,7 @@ class _GraphiteCellState extends State<GraphiteCell> {
                   : null,
               child: Builder(builder: (ctx) {
                 return widget.builder == null
-                    ? _defaultNodeCellBuilder(ctx, node)
+                    ? _tableBuilder(ctx, node)
                     : widget.builder(ctx, node);
               }),
             ),
@@ -160,7 +179,9 @@ class _GraphiteAnchorState extends State<GraphiteAnchor> {
   @override
   Widget build(BuildContext context) {
     return IgnorePointer(
-      child: Container(),
+      child: Container(
+        color: Colors.orange,
+      ),
     );
   }
 }

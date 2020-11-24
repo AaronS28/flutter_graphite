@@ -125,6 +125,7 @@ class GraphMatrix extends GraphBasic {
               anchorMargin: AnchorMargin.start,
               orientation: AnchorOrientation.bottomRight,
               from: item.id,
+              tableQuanity: node.tableQuanity,
               to: id,
               isAnchor: true,
               renderIncomes: [node.id],
@@ -142,6 +143,7 @@ class GraphMatrix extends GraphBasic {
         NodeOutput(
           id: toId,
           next: [id],
+          tableQuanity: node.tableQuanity,
           anchorMargin: AnchorMargin.start,
           anchorType: AnchorType.loop,
           orientation: AnchorOrientation.topRight,
@@ -163,6 +165,7 @@ class GraphMatrix extends GraphBasic {
         NodeOutput(
           id: fromId,
           next: [id],
+          tableQuanity: node.tableQuanity,
           anchorType: AnchorType.loop,
           anchorMargin: AnchorMargin.end,
           orientation: AnchorOrientation.topLeft,
@@ -191,9 +194,7 @@ class GraphMatrix extends GraphBasic {
     NodeInput first = this.node(firstOutcomeId);
     queue.add(incomeId: item.id, bufferQueue: levelQueue, items: [
       NodeInput(
-        id: first.id,
-        next: first.next,
-      )
+          id: first.id, next: first.next, tableQuanity: first.tableQuanity)
     ]);
     outcomes.forEach((String outcomeId) {
       state.y++;
@@ -205,6 +206,7 @@ class GraphMatrix extends GraphBasic {
           anchorType: AnchorType.split,
           anchorMargin: AnchorMargin.end,
           orientation: AnchorOrientation.bottomLeft,
+          tableQuanity: item.tableQuanity,
           from: item.id,
           to: outcomeId,
           isAnchor: true,
@@ -242,6 +244,7 @@ class GraphMatrix extends GraphBasic {
       insertOrSkipNodeOnMatrix(
         NodeOutput(
           id: id,
+          tableQuanity: item.tableQuanity,
           next: [item.id],
           anchorType: AnchorType.join,
           anchorMargin: AnchorMargin.start,
